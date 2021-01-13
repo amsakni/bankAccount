@@ -1,0 +1,21 @@
+
+<div class="container">
+    <div class="row">
+        <h2 class="mx-auto">Deposit</h2>
+        <input required id="amount" #amount="ngModel" name="amount" [(ngModel)]="depositAmount" type="number" step="0.01" class="form-control" placeholder="Deposit amount" aria-label="Deposit amount" aria-describedby="basic-addon1">
+        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+            class="alert alert-danger">
+
+            <div *ngIf="amount.errors.required">
+                Amount is required.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row mx-auto">
+            <button [disabled]="!depositAmount" (click)="deposit()" type="button" class="btn btn-primary">Confirm deposit</button>
+        </div>
+    </div>
+    
+</div>
+
