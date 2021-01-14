@@ -26,7 +26,7 @@ public class AccountService {
 		return accountDAO.findAll();
 	}
 
-	public void depositAmount(Double amount) {
+	public synchronized void depositAmount(Double amount) {
 		Account currentAccount = accountDAO.findFirstByOrderByIdDesc();
 		Account account = initAccount(amount);
 		Double balance = accountDAO.findFirstByOrderByIdDesc() != null ? currentAccount.getBalance() : new Double(0);
@@ -36,9 +36,9 @@ public class AccountService {
 		accountDAO.flush();
 	}
 
-	public void withdrawalAmount(Double amount) throws WithdrawalException {
+	public synchronized void withdrawalAmount(Double amount) throws WithdrawalException {
 		Account currentAccount = accountDAO.findFirstByOrderByIdDesc();
-		Account account = initAccount(-amount);
+		Account account = initAccount(- amount);
 		Double balance = accountDAO.findFirstByOrderByIdDesc() != null ? currentAccount.getBalance() : new Double(0);
 
 		if (balance - amount < 0) {
