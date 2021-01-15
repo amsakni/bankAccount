@@ -29,7 +29,7 @@ public class AccountService {
 	public synchronized void depositAmount(Double amount) {
 		Account currentAccount = accountDAO.findFirstByOrderByIdDesc();
 		Account account = initAccount(amount);
-		Double balance = accountDAO.findFirstByOrderByIdDesc() != null ? currentAccount.getBalance() : new Double(0);
+		Double balance = currentAccount != null ? currentAccount.getBalance() : new Double(0);
 		
 		account.setBalance(amount + balance);
 		accountDAO.save(account);
@@ -39,7 +39,7 @@ public class AccountService {
 	public synchronized void withdrawalAmount(Double amount) throws WithdrawalException {
 		Account currentAccount = accountDAO.findFirstByOrderByIdDesc();
 		Account account = initAccount(- amount);
-		Double balance = accountDAO.findFirstByOrderByIdDesc() != null ? currentAccount.getBalance() : new Double(0);
+		Double balance = currentAccount != null ? currentAccount.getBalance() : new Double(0);
 
 		if (balance - amount < 0) {
 			throw new WithdrawalException("No enough money to withdrawal");
