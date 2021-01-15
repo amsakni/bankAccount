@@ -61,6 +61,7 @@ public class AccountServiceTest {
     @Test
     public void getAll_OK() {
         accountService.getAll();
+        Mockito.verify(accountDAO, Mockito.times(1)).findAll();
      }
 
 }
